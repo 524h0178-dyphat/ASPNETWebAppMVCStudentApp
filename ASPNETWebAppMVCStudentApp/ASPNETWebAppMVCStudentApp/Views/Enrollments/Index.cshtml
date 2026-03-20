@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ASPNETWebAppMVCStudentApp.Enrollment>
+
+@{
+    ViewBag.Title = "Enrollment Management";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary">
+            <i class="glyphicon glyphicon-registration-mark"></i> Enrollment List
+        </h2>
+        @Html.ActionLink("New Enrollment", "Create", null, new { @class = "btn btn-success shadow-sm" })
+    </div>
+
+    <div class="card shadow border-0">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Academic Records</h4>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Student Name</th>
+                        <th>Course Title</th>
+                        <th class="text-center">@Html.DisplayNameFor(model => model.Grade)</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="align-middle ps-4">
+                                <span class="fw-bold text-dark">
+                                    @item.Student.FirstName @item.Student.LastName
+                                </span>
+                            </td>
+                            <td class="align-middle">
+                                <i class="glyphicon glyphicon-book text-muted me-2"></i>
+                                @Html.DisplayFor(modelItem => item.Cours.Title)
+                            </td>
+                            <td class="text-center align-middle">
+                                @{
+                                    var badgeClass = item.Grade >= 3 ? "bg-success" : (item.Grade >= 2 ? "bg-warning text-dark" : "bg-danger");
+                                }
+                                <span class="badge @badgeClass p-2" style="min-width: 45px;">
+                                    @Html.DisplayFor(modelItem => item.Grade)
+                                </span>
+                            </td>
+                            <td class="text-center align-middle">
+                                <div class="btn-group" role="group">
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.EnrollmentID }, new { @class = "btn btn-outline-primary btn-sm" })
+                                    @Html.ActionLink("Details", "Details", new { id = item.EnrollmentID }, new { @class = "btn btn-outline-info btn-sm" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.EnrollmentID }, new { @class = "btn btn-outline-danger btn-sm" })
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

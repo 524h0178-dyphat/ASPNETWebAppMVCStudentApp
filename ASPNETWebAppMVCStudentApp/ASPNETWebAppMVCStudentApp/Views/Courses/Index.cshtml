@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ASPNETWebAppMVCStudentApp.Cours>
+
+@{
+    ViewBag.Title = "Course Management";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary"><i class="glyphicon glyphicon-book"></i> Course List</h2>
+        @Html.ActionLink("Create New Course", "Create", null, new { @class = "btn btn-success" })
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover table-striped mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Title)</th>
+                        <th>@Html.DisplayNameFor(model => model.Credits)</th>
+                        <th>Department</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="align-middle fw-bold">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td class="align-middle">
+                                <span class="badge bg-info text-dark">@item.Credits Credits</span>
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Department.Name)
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }, new { @class = "btn btn-outline-primary btn-sm" })
+                                    @Html.ActionLink("Details", "Details", new { id = item.CourseID }, new { @class = "btn btn-outline-info btn-sm" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseID }, new { @class = "btn btn-outline-danger btn-sm" })
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
